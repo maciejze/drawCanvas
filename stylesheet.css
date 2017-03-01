@@ -18,3 +18,11 @@ canvas{
     height: 10px;
     background-color: red;
 }
+.buffor{
+    position: absolute;
+    width:10px;
+    height:10px;
+    border:2px dashed #ff0000;
+
+    pointer-events:none;
+}
