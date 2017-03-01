@@ -1,5 +1,7 @@
-var rectangleDim = 10;
+var rectangleDim = 5;
 var vertexes = [];
+var panelWidth = 10;
+var panelHeight = 30;
 var backgroundImg = new Image();
 backgroundImg.src = "house.jpg";
 $(document).ready(function() {
@@ -24,39 +26,52 @@ $(document).ready(function() {
         var relX = e.pageX - offset.left;
         var relY = e.pageY - offset.top;
 
-        if (!isInRectangle(relX, relY, vertexes).inside) {
+        if (vertexes.length < 4) {
+
             //draw rectangle
             addVertexBuffor(canvas, relX, relY);
+
             //add vertex to array
             vertexes.push({
                 x: relX,
                 y: relY
             });
-            //adds input to middle of line
-            addInput(getHalfLinePoint(vertexes[vertexes.length - 1], vertexes[vertexes.length - 2]), canvas);
+
 
         } else {
             //ends drawing when closing a polygon
             canvas.unbind("click");
 
-            //adds input to middle of line
-            addInput(getHalfLinePoint(vertexes[vertexes.length - 1], vertexes[0]), canvas);
+
         }
         //redraw polygon
-        redrawCanvas(ctx);
+        redrawCanvas(ctx, canvas);
     });
-
-    $('#perspective-btn').on('click', function() {
-        canvas.on('click', function(e) {
-            // 
-            // var relX = e.pageX - offset.left;
-            // var relY = e.pageY - offset.top;
-            // ctx.moveTo(relX, relY);
-            // ctx.strokeStyle = "black";
-            // ctx.lineTo(relX, relY);
-            // ctx.stroke();
-
+    $('#draw-panels-btn').on('click', function() {
+        var arr = vertexes.map(function(element) {
+            return element.x;
         });
-    });
+
+        var index = arr.indexOf(Math.min.apply(null, arr));
+
+        var ALength = $('#input' + index).val();
+        var BLength = $('#input' + (index + 2) % 4).val();
+        var panelsHorizontally = Math.floor(ALength / panelWidth);
+        var panelsVertically = Math.floor(BLength / panelHeight);
+        ctx.strokeStyle = 'black';
+        ctx.beginPath();
+        ctx.moveTo(vertexes[index].x, vertexes[index].y);
+        ctx.lineTo(vertexes[index].x + panelWidth, vertexes[index].y + panelHeight);
+        ctx.stroke();
+
+    })
+    $('#clear-canvas-btn').on('click', function () {
+        vertexes = [];
+        ctx.clearRect(0, 0, 700, 700);
+        $('.buffor').remove();
+        $('.length-input').remove();
+        ctx.drawImage(backgroundImg, 0, 0);
+    })
+
 
 });
