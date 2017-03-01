@@ -9,8 +9,13 @@ canvas{
 }
 .length-input{
     width:30px;
-    height: 18px;
+    height: 10px;
     position: absolute;
+    font-size: 10px;
+    color:black;
+    border-radius: 3px;
+    border:2px solid #FFDC00;
+    background-color: #FFDC00;
 }
 .center{
     position: absolute;
@@ -20,9 +25,8 @@ canvas{
 }
 .buffor{
     position: absolute;
-    width:10px;
-    height:10px;
-    border:2px dashed #ff0000;
+
+    border:2px dotted #FF4136;
 
     pointer-events:none;
 }

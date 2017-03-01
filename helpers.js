@@ -1,23 +1,28 @@
     function addInput(inputPos, canvas) {
         if (inputPos) {
             var input = document.createElement('input');
-            $(input).css('top', inputPos.y - 9 + 'px').css('left', inputPos.x - 15 + 'px');
-            $(input).addClass('length-input').attr('type', 'number');
+            $(input).css('top', inputPos.y - 5 + 'px').css('left', inputPos.x - 15 + 'px');
+            $(input).addClass('length-input').attr('type', 'number').attr('min', '0').attr('value', 1);
             canvas.after(input);
         }
 
     }
 
-    function addVertexBuffor(canvas, posX, posY){
+    function addVertexBuffor(canvas, posX, posY) {
         var buffor = document.createElement('div');
         $(buffor).addClass('buffor');
-        $(buffor).css('left', posX - 5 + 'px').css('top', posY - 5 + 'px');
+
+        $(buffor).css('left', posX - rectangleDim / 2 + 'px')
+            .css('top', posY - rectangleDim / 2 + 'px')
+            .css('width', rectangleDim + 'px')
+            .css('height', rectangleDim + 'px');
+
         canvas.after(buffor);
 
     }
 
-    function isInRectangle(x, y, vertexes) {
-        var rectangleDim = 10;
+    function isInRectangle(x, y) {
+
         for (var i = 0; i < vertexes.length; i++) {
 
             if (Math.abs(vertexes[i].x - x) < rectangleDim / 2 && Math.abs(vertexes[i].y - y) < rectangleDim / 2) {
