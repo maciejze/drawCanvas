@@ -8,6 +8,7 @@ canvas{
     height:431px;
 }
 .length-input{
+    padding: 2px;
     width:30px;
     height: 10px;
     position: absolute;
@@ -15,7 +16,7 @@ canvas{
     color:black;
     border-radius: 3px;
     border:2px solid #FFDC00;
-    background-color: #FFDC00;
+    background-color: white;
 }
 .center{
     position: absolute;

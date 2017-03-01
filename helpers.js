@@ -21,6 +21,22 @@
 
     }
 
+    function redrawCanvas(ctx) {
+        ctx.clearRect(0, 0, 700, 700);
+        ctx.beginPath();
+        ctx.strokeStyle = "#FFDC00";
+        ctx.fillStyle = "rgba(255,220,0,0.5)"
+        ctx.moveTo(vertexes[0].x, vertexes[0].y);
+        ctx.drawImage(backgroundImg, 0, 0);
+        for (var i = 1; i < vertexes.length; i++) {
+            ctx.lineTo(vertexes[i].x, vertexes[i].y);
+
+        }
+        ctx.stroke();
+        ctx.closePath();
+        ctx.fill();
+    }
+
     function isInRectangle(x, y) {
 
         for (var i = 0; i < vertexes.length; i++) {
