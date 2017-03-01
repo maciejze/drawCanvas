@@ -1,0 +1,20 @@
+.container{
+    margin:0 auto;
+    position: relative;
+}
+canvas{
+    border:1px solid grey;
+    width:640px;
+    height:431px;
+}
+.length-input{
+    width:30px;
+    height: 18px;
+    position: absolute;
+}
+.center{
+    position: absolute;
+    width:10px;
+    height: 10px;
+    background-color: red;
+}
