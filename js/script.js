@@ -1,5 +1,7 @@
 $(document).ready(function() {
-    
-    $('#myCanvas').drawOnCanvas('images/house.jpg');
+    config = {};
+    config.imageUrl = 'images/house.jpg';
+    config.clearBtnId = 'clear-canvas-btn';
+    $('#myCanvas2').drawOnCanvas(config);
 
 });

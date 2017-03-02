@@ -1,30 +1,29 @@
 (function($) {
-    $.fn.drawOnCanvas = function(imageUrl) {
+    $.fn.drawOnCanvas = function(config) {
+
         //canvas initialization
-        var c = document.getElementById("myCanvas");
+        var c = document.getElementById(this.attr('id'));
         var ctx = c.getContext("2d");
-        ctx.strokeStyle = '#FFDC00';
+        var canvas = this;
+        var offset = canvas.offset();
+
         var vertexes = [];
+        ctx.strokeStyle = "#FFDC00";
+        ctx.fillStyle = "rgba(255,220,0,0.5)";
+
         var backgroundImg = new Image();
-        backgroundImg.src = imageUrl;
+        backgroundImg.src = config.imageUrl;
         backgroundImg.onload = function() {
             drawImage()
         };
 
-        var canvas = $('#myCanvas');
-        var offset = canvas.offset();
-
         //click to draw event
         canvas.on('click', function(e) {
-
             var relX = e.pageX - offset.left;
             var relY = e.pageY - offset.top;
             if (vertexes.length < 4) {
-
-                //draw rectangle
+                //add draggable handler and add vertex to array
                 addVertexHandler(relX, relY);
-
-                //add vertex to array
                 vertexes.push({
                     x: relX,
                     y: relY
@@ -40,39 +39,44 @@
             redrawCanvas();
         });
 
-        $('#clear-canvas-btn').on('click', function() {
-            vertexes = [];
-            ctx.clearRect(0, 0, canvas.width(), canvas.height());
+        $('#' + config.clearBtnId).on('click', function() {
+            clearCanvas(true);
             $('.handler').remove();
             $('.length-input').remove();
             drawImage();
         })
 
         function drawImage() {
-            ctx.drawImage(backgroundImg, 0, 0, backgroundImg.width, backgroundImg.height, 0, 0, c.width, c.height);
+            ctx.drawImage(backgroundImg, 0, 0, backgroundImg.width, backgroundImg.height, 0, 0, canvas.width(), canvas.height());
+        }
+
+        function clearCanvas(clearVertexes) {
+            if(clearVertexes){
+                vertexes = [];
+                $('.canvas-vertex-handler').remove();
+            }
+            $('.canvas-length-input').remove();
+            ctx.clearRect(0, 0, canvas.width(), canvas.height());
         }
 
         function addInput(inputPos, id) {
             if (inputPos) {
                 var input = document.createElement('input');
-                $(input).addClass('length-input')
+                $(input).addClass('canvas-length-input')
                     .attr('type', 'number')
                     .attr('min', '1')
                     .attr('value', 100)
                     .attr('id', 'input' + id)
                     .css('top', inputPos.y + 'px')
                     .css('left', inputPos.x + 'px');
-
                 canvas.after(input);
             }
-
         }
 
         function addVertexHandler(posX, posY) {
             var handler = document.createElement('div');
-            var quantity = $('.handler').length;
-            console.log('vertex handler pos', posX, posY)
-            $(handler).addClass('handler')
+            var quantity = $('.canvas-vertex-handler').length;
+            $(handler).addClass('canvas-vertex-handler')
                 .attr('vertex', quantity)
                 .css('left', posX + 'px')
                 .css('top', posY + 'px');
@@ -83,27 +87,21 @@
                 drag: function(event, ui) {
                     vertexes[$(handler).attr('vertex')].x = ui.position.left;
                     vertexes[$(handler).attr('vertex')].y = ui.position.top;
-                    redrawCanvas(ctx, canvas);
+                    redrawCanvas();
                 }
             });
 
         }
 
         function redrawCanvas() {
-            //clear canvas
-            $('.length-input').remove();
-            ctx.clearRect(0, 0, canvas.width(), canvas.height());
-            ctx.beginPath();
-            ctx.strokeStyle = "#FFDC00";
-            ctx.fillStyle = "rgba(255,220,0,0.5)";
 
-            //redraw polygon
+            clearCanvas(false);
+            drawImage();
+            //redraw polygon and fill it with background
+            ctx.beginPath();
             ctx.moveTo(vertexes[0].x, vertexes[0].y);
-            console.log('canvas line start', vertexes[0].x, vertexes[0].y);
-            drawImage()
 
             for (var i = 1; i < vertexes.length; i++) {
-                console.log('canvas line to', vertexes[i].x, vertexes[i].y);
                 ctx.lineTo(vertexes[i].x, vertexes[i].y);
             }
 
@@ -114,13 +112,16 @@
 
             //draw input
             if (vertexes.length > 1) {
-                addInput(getHalfLinePoint(vertexes[0], vertexes[1]), canvas, 0);
-                addInput(getHalfLinePoint(vertexes[1], vertexes[2]), canvas, 1);
+                addInput(getHalfLinePoint(0));
+                addInput(getHalfLinePoint(1));
             }
 
         }
 
-        function getHalfLinePoint(pointA, pointB, last) {
+        function getHalfLinePoint(lineIdx) {
+
+            var pointA = vertexes[lineIdx];
+            var pointB = vertexes[lineIdx + 1];
             if (pointA === undefined || pointB === undefined) {
                 return false;
             }

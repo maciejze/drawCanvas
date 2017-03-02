@@ -6,10 +6,10 @@
 
 canvas {
     border: 1px solid grey;
-    
+
 }
 
-.length-input {
+.canvas-length-input {
     margin-left: -20px;
     margin-top:-5px;
     padding: 2px;
@@ -24,7 +24,7 @@ canvas {
 }
 
 
-.handler {
+.canvas-vertex-handler {
     position: absolute;
     width: 0;
     height: 0;
