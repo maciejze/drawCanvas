@@ -29,7 +29,7 @@ $(document).ready(function() {
         if (vertexes.length < 4) {
 
             //draw rectangle
-            addVertexBuffor(canvas, relX, relY, ctx);
+            addVertexHandler(canvas, relX, relY, ctx);
 
             //add vertex to array
             vertexes.push({
@@ -67,7 +67,7 @@ $(document).ready(function() {
     $('#clear-canvas-btn').on('click', function () {
         vertexes = [];
         ctx.clearRect(0, 0, 700, 700);
-        $('.buffor').remove();
+        $('.handler').remove();
         $('.length-input').remove();
         ctx.drawImage(backgroundImg, 0, 0);
     })

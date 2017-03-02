@@ -12,21 +12,26 @@
 
     }
 
-    function addVertexBuffor(canvas, posX, posY, ctx) {
-        var buffor = document.createElement('div');
-        var quantity = $('.buffor').length;
+    function addVertexHandler(canvas, posX, posY, ctx) {
+        var handler = document.createElement('div');
+        var quantity = $('.handler').length;
 
-        $(buffor).addClass('buffor').attr('vertex', quantity);
-        $(buffor).css('left', posX + 'px')
+        $(handler).addClass('handler').attr('vertex', quantity);
+        $(handler).css('left', posX + 'px')
             .css('top', posY + 'px')
-        canvas.after(buffor);
-        
-        $(buffor).draggable({
-            drag: function(event, ui) {
+        canvas.after(handler);
 
-                vertexes[$(buffor).attr('vertex')].x = ui.position.left;
-                vertexes[$(buffor).attr('vertex')].y = ui.position.top;
+        $(handler).draggable({
+            start: function() {
+                $(handler).css('cursor', 'none');
+            },
+            drag: function(event, ui) {
+                vertexes[$(handler).attr('vertex')].x = ui.position.left;
+                vertexes[$(handler).attr('vertex')].y = ui.position.top;
                 redrawCanvas(ctx, canvas);
+            },
+            stop: function() {
+                $(handler).css('cursor', 'pointer');
             }
         });
 
