@@ -1,12 +1,14 @@
     function addInput(inputPos, canvas, id) {
         if (inputPos) {
             var input = document.createElement('input');
-            $(input).css('top', inputPos.y - 5 + 'px').css('left', inputPos.x - 20 + 'px');
             $(input).addClass('length-input')
                 .attr('type', 'number')
                 .attr('min', '1')
                 .attr('value', 100)
-                .attr('id', 'input' + id);
+                .attr('id', 'input' + id)
+                .css('top', inputPos.y  + 'px')
+                .css('left', inputPos.x  + 'px');
+                
             canvas.after(input);
         }
 
@@ -16,26 +18,18 @@
         var handler = document.createElement('div');
         var quantity = $('.handler').length;
 
-        $(handler).addClass('handler').attr('vertex', quantity);
-        $(handler).css('left', posX + 'px')
-            .css('top', posY + 'px')
+        $(handler).addClass('handler')
+            .attr('vertex', quantity)
+            .css('left', posX + 'px')
+            .css('top', posY + 'px');
+
         canvas.after(handler);
 
         $(handler).draggable({
-            start: function() {
-                //canvas.css('cursor', 'none');
-                //
-                $(handler).addClass('no-cursor');
-            },
             drag: function(event, ui) {
                 vertexes[$(handler).attr('vertex')].x = ui.position.left;
                 vertexes[$(handler).attr('vertex')].y = ui.position.top;
                 redrawCanvas(ctx, canvas);
-            },
-            stop: function() {
-                //canvas.css('cursor', 'auto');
-                //$(handler).addClass('cursor', 'pointer');
-                $(handler).removeClass('no-cursor');
             }
         });
 
@@ -69,10 +63,7 @@
 
     }
 
-    function getLineLength(pointA, pointB) {
-        return Math.sqrt(Math.pow((pointA.x - pointB.x), 2) + Math.pow((pointA.y - pointB.y), 2));
 
-    }
     function getHalfLinePoint(pointA, pointB, last) {
         if (pointA === undefined || pointB === undefined) {
             return false;

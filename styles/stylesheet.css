@@ -3,8 +3,6 @@
     position: relative;
 }
 
-.canvas-wrapper {}
-
 canvas {
     border: 1px solid grey;
     width: 640px;
@@ -12,6 +10,8 @@ canvas {
 }
 
 .length-input {
+    margin-left: -20px;
+    margin-top:-5px;
     padding: 2px;
     width: 40px;
     height: 10px;
@@ -23,12 +23,6 @@ canvas {
     background-color: white;
 }
 
-.center {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: red;
-}
 
 .handler {
     position: absolute;
@@ -42,7 +36,7 @@ canvas {
     cursor: pointer;
 }
 
-.no-cursor {}
+
 
 button {
     background-color: transparent;
