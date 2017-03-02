@@ -1,12 +1,12 @@
 .canvas-container {
     margin: 0 auto;
     position: relative;
+    margin:100px;
 }
 
 canvas {
     border: 1px solid grey;
-    width: 640px;
-    height: 431px;
+    
 }
 
 .length-input {
