@@ -6,26 +6,33 @@
                 .attr('type', 'number')
                 .attr('min', '1')
                 .attr('value', 100)
-                .attr('id','input' + id );
+                .attr('id', 'input' + id);
             canvas.after(input);
         }
 
     }
 
-    function addVertexBuffor(canvas, posX, posY) {
+    function addVertexBuffor(canvas, posX, posY, ctx) {
         var buffor = document.createElement('div');
-        $(buffor).addClass('buffor');
+        var quantity = $('.buffor').length;
 
-        $(buffor).css('left', posX - rectangleDim / 2 + 'px')
-            .css('top', posY - rectangleDim / 2 + 'px')
-            .css('width', rectangleDim + 'px')
-            .css('height', rectangleDim + 'px');
-
+        $(buffor).addClass('buffor').attr('vertex', quantity);
+        $(buffor).css('left', posX + 'px')
+            .css('top', posY + 'px')
         canvas.after(buffor);
+        
+        $(buffor).draggable({
+            drag: function(event, ui) {
+
+                vertexes[$(buffor).attr('vertex')].x = ui.position.left;
+                vertexes[$(buffor).attr('vertex')].y = ui.position.top;
+                redrawCanvas(ctx, canvas);
+            }
+        });
 
     }
 
-    function redrawCanvas(ctx, canvas, id) {
+    function redrawCanvas(ctx, canvas) {
         $('.length-input').remove();
         ctx.clearRect(0, 0, 700, 700);
         ctx.beginPath();

@@ -25,9 +25,18 @@ canvas{
     background-color: red;
 }
 .buffor{
-    position: absolute;
+    /*position: absolute;
     border-radius: 50%;
-    border:2px solid #FF4136;
+    background-color: white;
+    border:2px black solid;*/
+    position: absolute;
+    width: 0;
+	height: 0;
+    margin-left: -4px;
+    margin-top: -14px;
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 16px solid #FFDC00;
+    cursor: pointer;
 
-    pointer-events:none;
 }

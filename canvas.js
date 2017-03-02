@@ -1,4 +1,4 @@
-var rectangleDim = 5;
+var rectangleDim = 10;
 var vertexes = [];
 var panelWidth = 10;
 var panelHeight = 30;
@@ -29,7 +29,7 @@ $(document).ready(function() {
         if (vertexes.length < 4) {
 
             //draw rectangle
-            addVertexBuffor(canvas, relX, relY);
+            addVertexBuffor(canvas, relX, relY, ctx);
 
             //add vertex to array
             vertexes.push({
@@ -53,7 +53,6 @@ $(document).ready(function() {
         });
 
         var index = arr.indexOf(Math.min.apply(null, arr));
-
         var ALength = $('#input' + index).val();
         var BLength = $('#input' + (index + 2) % 4).val();
         var panelsHorizontally = Math.floor(ALength / panelWidth);
