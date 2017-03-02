@@ -25,7 +25,6 @@ $(document).ready(function() {
 
         var relX = e.pageX - offset.left;
         var relY = e.pageY - offset.top;
-
         if (vertexes.length < 4) {
 
             //draw rectangle
@@ -39,7 +38,7 @@ $(document).ready(function() {
 
 
         } else {
-            //ends drawing when closing a polygon
+            //ends drawing when last vertex is placed
             canvas.unbind("click");
 
 
@@ -52,16 +51,19 @@ $(document).ready(function() {
             return element.x;
         });
 
-        var index = arr.indexOf(Math.min.apply(null, arr));
-        var ALength = $('#input' + index).val();
-        var BLength = $('#input' + (index + 2) % 4).val();
-        var panelsHorizontally = Math.floor(ALength / panelWidth);
-        var panelsVertically = Math.floor(BLength / panelHeight);
-        ctx.strokeStyle = 'black';
-        ctx.beginPath();
-        ctx.moveTo(vertexes[index].x, vertexes[index].y);
-        ctx.lineTo(vertexes[index].x + panelWidth, vertexes[index].y + panelHeight);
-        ctx.stroke();
+        //var index = arr.indexOf(Math.min.apply(null, arr));
+        var aLength = 33;
+        var bLength = 'ss';
+        var trueALength = $('#input0').val();
+        var trueBLength =  $('#input1').val();
+
+        //console.log(trueALength, trueBLength);
+        scaleA = trueALength / getLineLength(vertexes[0], vertexes[1]);
+        scaleB =  trueBLength / getLineLength(vertexes[1], vertexes[2]);
+
+        var scaledPanelWidth = panelWidth / scaleA;
+        console.log(scaledPanelWidth, getLineLength(vertexes[0], vertexes[1]) / scaledPanelWidth);
+
 
     })
     $('#clear-canvas-btn').on('click', function () {

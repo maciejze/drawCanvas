@@ -1,39 +1,52 @@
-.container{
-    margin:0 auto;
+.canvas-container {
+    margin: 0 auto;
     position: relative;
 }
-canvas{
-    border:1px solid grey;
-    width:640px;
-    height:431px;
+
+.canvas-wrapper {}
+
+canvas {
+    border: 1px solid grey;
+    width: 640px;
+    height: 431px;
 }
-.length-input{
+
+.length-input {
     padding: 2px;
-    width:40px;
+    width: 40px;
     height: 10px;
     position: absolute;
     font-size: 10px;
-    color:black;
+    color: black;
     border-radius: 3px;
-    border:2px solid #FFDC00;
+    border: 2px solid #FFDC00;
     background-color: white;
 }
-.center{
+
+.center {
     position: absolute;
-    width:10px;
+    width: 10px;
     height: 10px;
     background-color: red;
 }
-.handler{
 
+.handler {
     position: absolute;
     width: 0;
-	height: 0;
+    height: 0;
     margin-left: -4px;
-    margin-top: -14px;
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	border-top: 16px solid #FFDC00;
+    margin-top: -26px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 30px solid #FFDC00;
     cursor: pointer;
+}
 
+.no-cursor {}
+
+button {
+    background-color: transparent;
+    padding: 5px 20px;
+    border: 2px solid black;
+    border-radius: 10px;
 }
