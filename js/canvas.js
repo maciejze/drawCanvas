@@ -5,6 +5,8 @@
         var c = document.getElementById(this.attr('id'));
         var ctx = c.getContext("2d");
         var canvas = this;
+
+        canvas.wrap('<div class="canvas-container"></div>');
         var offset = canvas.offset();
 
         var vertexes = [];
@@ -21,14 +23,13 @@
         canvas.on('click', function(e) {
             var relX = e.pageX - offset.left;
             var relY = e.pageY - offset.top;
-            if (vertexes.length < 4) {
+            if (vertexes.length < config.polygon) {
                 //add draggable handler and add vertex to array
                 addVertexHandler(relX, relY);
                 vertexes.push({
                     x: relX,
                     y: relY
                 });
-
 
             } else {
                 //ends drawing when last vertex is placed
@@ -39,19 +40,22 @@
             redrawCanvas();
         });
 
-        $('#' + config.clearBtnId).on('click', function() {
-            clearCanvas(true);
-            $('.handler').remove();
-            $('.length-input').remove();
-            drawImage();
-        })
+        if (config.clearBtnId) {
+            $('#' + config.clearBtnId).on('click', function() {
+                clearCanvas(true);
+                $('.handler').remove();
+                $('.length-input').remove();
+                drawImage();
+            })
+        }
+
 
         function drawImage() {
             ctx.drawImage(backgroundImg, 0, 0, backgroundImg.width, backgroundImg.height, 0, 0, canvas.width(), canvas.height());
         }
 
         function clearCanvas(clearVertexes) {
-            if(clearVertexes){
+            if (clearVertexes) {
                 vertexes = [];
                 $('.canvas-vertex-handler').remove();
             }
@@ -64,7 +68,7 @@
                 var input = document.createElement('input');
                 $(input).addClass('canvas-length-input')
                     .attr('type', 'number')
-                    .attr('min', '1')
+                    .attr('min', 1)
                     .attr('value', 100)
                     .attr('id', 'input' + id)
                     .css('top', inputPos.y + 'px')

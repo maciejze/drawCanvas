@@ -1,7 +1,10 @@
 $(document).ready(function() {
-    config = {};
-    config.imageUrl = 'images/house.jpg';
-    config.clearBtnId = 'clear-canvas-btn';
+    config = {
+        imageUrl :'images/house.jpg',
+        clearBtnId : 'clear-canvas-btn',
+        polygon: 4
+    };
+
     $('#myCanvas2').drawOnCanvas(config);
 
 });
